@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("PuppyStore.Server")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+086046ab133ebe13f72f174a48c27f289328fcdf")]
 [assembly: System.Reflection.AssemblyProductAttribute("PuppyStore.Server")]
 [assembly: System.Reflection.AssemblyTitleAttribute("PuppyStore.Server")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
