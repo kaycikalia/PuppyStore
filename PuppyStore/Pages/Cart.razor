@@ -1,0 +1,235 @@
+﻿@page "/cart"
+@using PuppyStore.Client.Services
+@inject CartService CartService
+@inject FavoritesService Favorites
+@inject PuppiesRepository Repo
+@inject NavigationManager Nav
+@inject UserService UserService
+
+<h1 class="cart-title">Your Cart 🛒</h1>
+
+@if (!UserService.IsLoggedIn)
+{
+    <div class="login-reminder">
+        💾 Save your cart by
+        <a @onclick="GoToLogin">Logging In</a>!
+    </div>
+}
+
+@if (!CartItems.Any())
+{
+    <p class="empty-msg">Your cart is empty — go find your new best friend! 🐶</p>
+    <button class="btn-primary" @onclick="GoToPuppies">Browse Puppies</button>
+}
+else
+{
+    <div class="cart-section">
+        <h2>Items In Cart</h2>
+
+        <div class="cart-grid">
+            @foreach (var cartItem in CartItems)
+            {
+                var puppy = GetPuppy(cartItem.PuppyId);
+                if (puppy != null)
+                {
+                    <div class="cart-card">
+                        <img src="@puppy.ImageUrl" alt="@puppy.Name" />
+
+                        <h3>@puppy.Name</h3>
+                        <p>@puppy.Breed • @puppy.Sex</p>
+                        <p class="price">@puppy.Price.ToString("C0")</p>
+
+                        <button class="btn-primary" @onclick="() => RemoveFromCart(cartItem.PuppyId)">
+                            Remove
+                        </button>
+                    </div>
+                }
+            }
+        </div>
+
+        <div class="checkout-container">
+            <button class="btn-checkout"
+                    disabled="@( !CartItems.Any() )"
+                    @onclick="@(() => Nav.NavigateTo("/checkout"))">
+                Proceed to Checkout →
+            </button>
+        </div>
+    </div>
+}
+
+@if (Favorites.FavoriteIds.Any())
+{
+    <div class="favorites-section">
+        <h2>❤️ Your Favorites</h2>
+
+        <div class="cart-grid">
+            @foreach (var favId in Favorites.FavoriteIds)
+            {
+                var puppy = GetPuppyByString(favId);
+                if (puppy != null)
+                {
+                    bool alreadyInCart = IsInCart(puppy.NumericId);
+
+                    <div class="cart-card favorite-card">
+                        <img src="@puppy.ImageUrl" alt="@puppy.Name" />
+
+                        <h3>@puppy.Name</h3>
+                        <p>@puppy.Breed • @puppy.Sex</p>
+                        <p class="price">@puppy.Price.ToString("C0")</p>
+
+                        <!-- ADD TO CART BUTTON -->
+                        <button class="btn-primary"
+                                disabled="@(alreadyInCart)"
+                                @onclick="async () => await MoveToCart(puppy.NumericId)">
+
+                            @if (alreadyInCart || (AddedStatus.ContainsKey(puppy.NumericId) && AddedStatus[puppy.NumericId]))
+                            {
+                                <span style="color: #4CAF50; font-weight: bold;">✔ Added!</span>
+                            }
+                            else
+                            {
+                                <span>Add to Cart</span>
+                            }
+                        </button>
+
+                        <button class="back-link" @onclick="() => Favorites.ToggleFavorite(favId)">
+                            Remove Favorite
+                        </button>
+                    </div>
+                }
+            }
+        </div>
+    </div>
+}
+
+@code {
+    private List<CartItem> CartItems = new();
+
+    // Tracks "Added!" animation state
+    private Dictionary<int, bool> AddedStatus = new();
+
+    protected override async Task OnInitializedAsync()
+    {
+        var user = await UserService.GetCurrentUser();
+
+        if (user == null)
+        {
+            CartItems = CartService.GuestCart;
+        }
+        else
+        {
+            await CartService.LoadCart();
+            CartItems = CartService.Cart;
+        }
+    }
+
+    private PuppiesRepository.Puppy? GetPuppy(int id) =>
+        Repo.All().FirstOrDefault(p => p.NumericId == id);
+
+    private PuppiesRepository.Puppy? GetPuppyByString(string id) =>
+        Repo.All().FirstOrDefault(p => p.Id == id);
+
+    private void GoToPuppies() => Nav.NavigateTo("/availablepuppies");
+    private void GoToLogin() => Nav.NavigateTo("/login");
+
+    private bool IsInCart(int puppyId) =>
+        CartItems.Any(c => c.PuppyId == puppyId);
+
+    private async Task RemoveFromCart(int id)
+    {
+        await CartService.RemoveFromCart(id);
+        CartItems = UserService.IsLoggedIn ? CartService.Cart : CartService.GuestCart;
+        StateHasChanged();
+    }
+
+    private async Task MoveToCart(int numericId)
+    {
+        // If already in the cart, show ✔ Added! but don’t add again
+        if (IsInCart(numericId))
+        {
+            AddedStatus[numericId] = true;
+            StateHasChanged();
+            return;
+        }
+
+        await CartService.AddToCart(numericId);
+
+        CartItems = UserService.IsLoggedIn ? CartService.Cart : CartService.GuestCart;
+
+        AddedStatus[numericId] = true;
+        StateHasChanged();
+
+        await Task.Delay(1500);
+
+        AddedStatus[numericId] = false;
+        StateHasChanged();
+    }
+}
+
+<style>
+    .back-link {
+        display: inline-block;
+        width: 100%;
+        text-align: center;
+        color: #ff7ca8;
+        text-decoration: underline;
+        font-weight: bold;
+        cursor: pointer;
+        padding: 8px 14px;
+        border-radius: 6px;
+        background: none;
+        border: none;
+        margin-top: 20px;
+        transition: 0.2s ease-in-out;
+    }
+
+        .back-link:hover {
+            background-color: #ff5f98;
+            color: white;
+        }
+
+    .login-reminder a {
+        color: #ff5fa8; /* pink */
+        font-weight: bold;
+        text-decoration: underline; /* always underlined */
+        cursor: pointer;
+        transition: 0.2s ease-in-out;
+    }
+
+        .login-reminder a:hover {
+            color: #ff9cc7; /* lighter pink on hover */
+            text-decoration: underline; /* stays underlined */
+        }
+
+
+    .checkout-container {
+        margin-top: 25px;
+        text-align: center;
+    }
+
+    .btn-checkout {
+        padding: 14px 28px;
+        font-size: 18px;
+        background-color: #ff7ca8;
+        color: white;
+        border: none;
+        border-radius: 12px;
+        cursor: pointer;
+        font-weight: bold;
+        transition: 0.2s ease-in-out;
+    }
+
+        .btn-checkout:hover {
+            background-color: #ff5f98;
+        }
+
+        .btn-checkout:disabled {
+            background-color: #ffd9e6;
+            cursor: not-allowed;
+            color: #b57b95;
+            opacity: 0.6;
+        }
+</style>
+
+
+

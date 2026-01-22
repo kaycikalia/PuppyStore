@@ -1,0 +1,14 @@
+﻿@page "/landing/{name}"
+@code {
+    [Parameter]
+    public string name { get; set; } = "";
+}
+
+<div class="auth-container">
+    <div class="auth-box">
+        <h2>Hello @name!</h2>
+        <h3>Welcome to PuppyStore!</h3>
+        <p>You are now logged in successfully 🐾</p>
+        <a href="/">Return to Home</a>
+    </div>
+</div>

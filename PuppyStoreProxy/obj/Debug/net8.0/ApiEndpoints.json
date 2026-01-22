@@ -1,0 +1,34 @@
+[
+  {
+    "ContainingType": "PuppyStoreProxy.Controllers.PetStoreProxyController",
+    "Method": "CreateUser",
+    "RelativePath": "api/PetStoreProxy/create",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "System.Object",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PuppyStoreProxy.Controllers.PetStoreProxyController",
+    "Method": "GetUser",
+    "RelativePath": "api/PetStoreProxy/get",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "email",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  }
+]

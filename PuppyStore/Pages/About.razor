@@ -1,0 +1,167 @@
+﻿@page "/about"
+@inject NavigationManager Nav
+
+<div class="about-wrapper">
+
+    <!-- LEFT SECTION -->
+    <div class="about-left">
+
+        <h1 class="about-heading">About The Founder! 🐾</h1>
+        <h2 class="about-subtitle">Hi, I'm Kayci Spray ❤️</h2>
+
+        <p class="about-text">
+            I’m a Computer Science student who loves creating clean, intuitive, user-friendly digital
+            experiences. I enjoy solving problems, organizing complexity, and building projects that blend
+            creativity with logic.
+        </p>
+
+        <h2 class="about-title">My Journey</h2>
+
+        <p class="about-text">
+            I’ve always been curious about how technology works and how it can help people. Studying CS
+            gave me the perfect mix of design, programming, and problem-solving, and I quickly discovered
+            how much I enjoy both frontend and backend development.
+        </p>
+
+        <h2 class="about-title">What I Love Working On</h2>
+
+        <p class="about-text">
+            I’m passionate about web design and full-stack development. I enjoy writing clean code,
+            building responsive interfaces, and creating smooth user experiences using tools like C#,
+            Blazor, SQL, Python, and JavaScript.
+        </p>
+
+        <h2 class="about-title">Where I'm Headed</h2>
+
+        <p class="about-text">
+            I’m especially interested in web design, but I’m also excited to explore other areas of
+            software development—from backend logic to application development and anything new I discover
+            along the way. My goal is to keep learning, growing, and building meaningful projects.
+        </p>
+
+        <h2 class="about-title">How I Built This Website</h2>
+
+        <p class="about-text">
+            I created this website using full-stack Blazor WebAssembly. I built the frontend layouts,
+            styling, animations, and components, while using C# services, dependency injection, and a SQL
+            database on the backend to handle puppies, user accounts, carts, favorites, and orders. Every
+            feature—from browsing puppies to checkout—was designed and coded by me as a complete
+            full-stack project.
+        </p>
+
+        <p class="about-text">
+            Thanks for taking the time to learn more about me and my work! 🐾
+        </p>
+
+        <button class="btn-primary meet-btn" @onclick="GoToPuppies">
+            View Available Puppies →
+        </button>
+
+    </div>
+
+
+
+    <!-- RIGHT SECTION: THREE STACKED IMAGES -->
+    <div class="about-right">
+
+        <img src="/about1.jpg" class="about-photo" alt="Puppy Image 1" />
+        <img src="/about2.jpg" class="about-photo" alt="Puppy Image 2" />
+        <img src="/about3.jpg" class="about-photo" alt="Puppy Image 3" />
+        <img src="/about.jpg" class="about-photo" alt="Puppy Image 4" />
+    
+
+    </div>
+
+</div>
+
+@code {
+    void GoToPuppies()
+    {
+        Nav.NavigateTo("/availablepuppies");
+    }
+}
+
+<style>
+    :root {
+        --dark-pink: #D12978;
+        --light-pink-border: #ffb6c1;
+    }
+
+    /* MAIN LAYOUT */
+    .about-wrapper {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        padding: 50px;
+        gap: 40px;
+    }
+
+    /* LEFT TEXT AREA */
+    .about-left {
+        flex: 1.3;
+    }
+
+    .about-heading {
+        font-size: 40px;
+        font-weight: 800;
+        color: var(--dark-pink);
+        margin-bottom: 10px;
+    }
+
+    .about-subtitle {
+        font-size: 26px;
+        margin-bottom: 15px;
+        color: var(--dark-pink);
+    }
+
+    .about-title {
+        font-size: 22px;
+        margin-top: 20px;
+        color: var(--dark-pink);
+        font-weight: bold;
+    }
+
+    .about-text {
+        font-size: 18px;
+        margin: 12px 0;
+        line-height: 1.7;
+        color: var(--dark-pink);
+    }
+
+    /* BUTTON */
+    .meet-btn {
+        margin-top: 25px;
+        padding: 14px 25px;
+        font-size: 18px;
+        background-color: var(--dark-pink);
+        border: none;
+        border-radius: 10px;
+        color: white;
+        cursor: pointer;
+        transition: 0.2s ease-in-out;
+    }
+
+        .meet-btn:hover {
+            background-color: #b01f5f;
+        }
+
+    /* RIGHT PHOTO COLUMN */
+    .about-right {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        gap: 30px; /* increases spacing between images */
+        margin-top: 40px; /* pushes image column DOWN */
+    }
+
+    /* Make sure all photos are uniform size & aligned visually */
+    .about-photo {
+        width: 100%;
+        height: 280px; /* keep all the same height */
+        object-fit: cover;
+        border-radius: 14px;
+        border: 6px solid var(--light-pink-border);
+        box-shadow: 0 4px 12px rgba(0,0,0,0.12);
+    }
+
+</style>

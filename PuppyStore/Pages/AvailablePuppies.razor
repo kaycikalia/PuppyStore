@@ -1,0 +1,106 @@
+﻿@page "/availablepuppies"
+@using PuppyStore
+@using System.Linq
+@using PuppyStore.Client.Services
+@inject PuppiesRepository Repo
+@inject FavoritesService Favorites
+@inject CartService CartService
+@inject NavigationManager Nav
+
+<h1>Available Puppies 🐶</h1>
+
+<div class="section-box filters">
+    <label>Breed:</label>
+    <select @bind="selectedBreed">
+        <option value="">Any Breed</option>
+        <option>Golden Retriever</option>
+        <option>Maltipoo</option>
+        <option>Pomeranian</option>
+        <option>Goldendoodle</option>
+        <option>English Lab</option>
+    </select>
+
+    <label>Sex:</label>
+    <select @bind="selectedSex">
+        <option value="">Any Sex</option>
+        <option>Male</option>
+        <option>Female</option>
+    </select>
+
+    <button @onclick="ApplyFilter">Go</button>
+</div>
+
+@if (filtered.Count == 0)
+{
+    <p>No puppies match your filters 😢</p>
+}
+else
+{
+    <div class="puppy-grid">
+        @foreach (var puppy in filtered)
+        {
+            <div class="puppy-card">
+
+                <!-- ❤️ Favorite Button (string id used correctly) -->
+                <button type="button"
+                        class="heart-btn"
+                        title="Favorite"
+                        @onclick="() => ToggleFavorite(puppy.Id)">
+                    <svg viewBox="0 0 24 24"
+                         class="@(Favorites.FavoriteIds.Contains(puppy.Id) ? "heart filled" : "heart")"
+                         width="22" height="22">
+                        <path d="M12 21s-6.716-4.35-9.36-7.2C.73 11.6.5 8.9 2.2 7.2
+                                                 4 5.4 6.8 5.7 8.4 7.3L12 10.9l3.6-3.6c1.6-1.6 4.4-1.9
+                                                 6.2-.1 1.7 1.7 1.5 4.4-.44 6.6C18.7 16.7 12 21 12 21z" />
+                    </svg>
+                </button>
+
+                <img src="@puppy.ImageUrl" alt="@puppy.Name" />
+                <h3>@puppy.Name</h3>
+                <p>@puppy.Sex • @puppy.Breed</p>
+                <p><strong>@puppy.Price.ToString("C0")</strong></p>
+
+                <button class="btn-secondary"
+                        @onclick="() => ViewPuppy(puppy.Id)">
+                    View
+                </button>
+
+            </div>
+        }
+    </div>
+}
+
+@code {
+    private List<PuppiesRepository.Puppy> all = new();
+    private List<PuppiesRepository.Puppy> filtered = new();
+    private string selectedBreed = "";
+    private string selectedSex = "";
+
+    protected override void OnInitialized()
+    {
+        all = Repo.All().ToList();
+        filtered = all.ToList();
+    }
+
+    private void ApplyFilter()
+    {
+        filtered = all
+            .Where(p =>
+                (string.IsNullOrEmpty(selectedBreed) || p.Breed == selectedBreed) &&
+                (string.IsNullOrEmpty(selectedSex) || p.Sex == selectedSex))
+            .ToList();
+    }
+
+    // 🎯 FIXED: Favorites use STRING IDs, not ints
+    private async Task ToggleFavorite(string id)
+    {
+        await Favorites.ToggleFavorite(id);
+        StateHasChanged();
+    }
+
+
+    private void ViewPuppy(string id)
+    {
+        Nav.NavigateTo($"/puppy/{Uri.EscapeDataString(id)}");
+    }
+}

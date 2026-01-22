@@ -1,0 +1,15 @@
+[
+  {
+    "Name": "Yas",
+    "Projects": [
+      {
+        "Path": "PuppyStore\\PuppyStore.csproj",
+        "Action": "Start"
+      },
+      {
+        "Path": "PuppyStore.Server\\PuppyStore.Server.csproj",
+        "Action": "Start"
+      }
+    ]
+  }
+]

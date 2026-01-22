@@ -1,0 +1,2444 @@
+﻿:root {
+    --light-pink: #FFE6EB; /* Background */
+    --medium-pink: #FFB6C1; /* Header + highlights */
+    --dark-pink: #FF6F91; /* Buttons + accents */
+    --deep-rose: #C94C72; /* Hover color */
+    --white: #FFFFFF; /* Clean sections + text boxes */
+    --charcoal: #3A3A3A; /* Text color for readability */
+    --deep-pink: #8a385c;
+}
+
+body {
+    margin-top: 100px;
+    font-family: 'quicksand', sans-serif;
+    background-color: var(--light-pink);
+    color: var(--deep-pink);
+}
+
+h1 {
+
+}
+
+button:focus,
+a:focus,
+h1:focus {
+    outline: none;
+}
+
+
+/* HEADER ---------------------------------------------------- */
+.site-header {
+    background-color: var(--white);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 40px;
+    color: var(--deep-rose);
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    height: 90px;
+    border-bottom: 4px solid var(--medium-pink);
+}
+
+/* LOGO IMAGE */
+.logo {
+    width: auto;
+    height: 120px; /* smaller so it fits better */
+    display: block;
+    margin-left: 35px;
+}
+
+/* LOGO AREA */
+.logo-area {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+/* NAVIGATION (Desktop) -------------------------------------- */
+.nav-links {
+    display: flex;
+    gap: 40px;
+    color: var(--dark-pink);
+}
+
+.nav-link {
+    color: var(--dark-pink);
+    text-decoration: none;
+    font-weight: 700;
+    transition: color 0.2s ease, text-decoration 0.2s ease;
+}
+
+    .nav-link:not(.active):hover {
+        text-decoration: underline;
+    }
+
+    .nav-link.active {
+        text-decoration: underline;
+        text-underline-offset: 6px;
+        text-decoration-thickness: 3px;
+    }
+
+/* ------------------------------------------------------------ */
+/* HAMBURGER MENU (Mobile Only) */
+/* ------------------------------------------------------------ */
+/* HAMBURGER ICON */
+.hamburger {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 6px;
+    width: 40px;
+    height: 40px;
+    background: white;
+    border: 2px solid #d12978; /* outline so you can see the button */
+    border-radius: 6px;
+    cursor: pointer;
+    padding: 6px;
+    z-index: 2000;
+}
+
+    .hamburger span {
+        width: 24px;
+        height: 3px;
+        background-color: #d12978; /* dark pink */
+        border-radius: 3px;
+        display: block;
+    }
+
+
+/* ------------------------------------------------------------ */
+/* MOBILE MENU (Slide-down) */
+/* ------------------------------------------------------------ */
+.mobile-menu {
+    display: none; /* hidden by default */
+    flex-direction: column;
+    background: var(--white);
+    width: 100%;
+    padding: 20px;
+    border-top: 3px solid var(--medium-pink);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+    position: absolute;
+    top: 90px;
+    left: 0;
+    z-index: 900;
+}
+
+    .mobile-menu.open {
+        display: flex;
+    }
+
+    .mobile-menu a {
+        padding: 12px 0;
+        font-size: 20px;
+        font-weight: bold;
+        color: var(--dark-pink);
+        text-decoration: none;
+    }
+
+/* ------------------------------------------------------------ */
+/* RESPONSIVENESS */
+/* ------------------------------------------------------------ */
+@media (max-width: 900px) {
+
+    .nav-links {
+        display: none; /* hide desktop nav */
+    }
+
+    .hamburger {
+        display: flex; /* show hamburger icon */
+    }
+
+    .logo {
+        height: 100px;
+        margin-left: 10px;
+    }
+
+    .site-header {
+        padding: 15px 20px;
+    }
+}
+
+
+/* MAIN CONTENT --------------------------------------------- */
+.page-body {
+    padding: 50px;
+    background-color: var(--light-pink);
+}
+
+/* SECTION BOXES (for filters, cards, etc.) */
+.section-box {
+    background: var(--white);
+    border-radius: 15px;
+    padding: 30px;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+    margin-bottom: 30px;
+    align-content: center;
+}
+
+/* FILTER AREA */
+.filters {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 25px;
+    background: var(--white);
+    padding: 15px 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+
+    .filters label {
+        font-weight: bold;
+    }
+
+select {
+    padding: 8px 12px;
+    border-radius: 6px;
+    border: 1px solid var(--medium-pink);
+    background-color: var(--white);
+    color: var(--charcoal);
+}
+
+/* PUPPY GRID ------------------------------------------------ */
+.puppy-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 30px;
+    justify-items: center; /* keeps each card centered in its own cell */
+    justify-content: start; /* THIS ensures the whole grid aligns left */
+}
+
+
+.puppy-card {
+    background: var(--white);
+    border-radius: 15px;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+    text-align: center;
+    padding: 15px;
+    transition: transform 0.2s, box-shadow 0.2s;
+    border: 3px solid transparent;
+    width: 250px;
+}
+
+    .puppy-card:hover {
+        transform: scale(1.04);
+        border-color: var(--dark-pink);
+        box-shadow: 0 4px 16px rgba(255, 111, 145, 0.3);
+    }
+
+    .puppy-card img {
+        width: 200px;
+        height: 200px;
+        object-fit: cover;
+        border-radius: 12px;
+        border: 4px solid var(--medium-pink);
+        background-color: var(--white);
+        transition: border-color 0.2s ease;
+    }
+
+        .puppy-card img:hover {
+            border-color: var(--dark-pink);
+        }
+
+    .puppy-card h3 {
+        color: var(--deep-rose);
+        margin-top: 10px;
+    }
+
+    .puppy-card p {
+        color: var(--charcoal);
+        margin-bottom: 10px;
+    }
+
+/* BUTTONS --------------------------------------------------- */
+
+
+
+.button {
+    background-color: var(--dark-pink);
+    color: var(--white);
+    border: none;
+    border-radius: 6px;
+    padding: 10px 18px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.2s ease;
+    text-decoration: none; /* for <a> tags */
+    display: inline-block;
+}
+
+    .button:hover {
+        background-color: var(--medium-pink);
+    }
+
+
+
+
+.filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    align-items: center;
+    background: var(--white);
+    padding: 15px 20px;
+    border-radius: 10px;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+    margin-bottom: 25px;
+}
+
+    .filters label {
+        font-weight: bold;
+    }
+
+    .filters select {
+        padding: 8px 12px;
+        border-radius: 6px;
+        border: 1px solid var(--medium-pink);
+        background-color: var(--white);
+        color: var(--charcoal);
+    }
+
+    .filters button {
+        background-color: var(--dark-pink);
+        color: var(--white);
+        border: none;
+        border-radius: 6px;
+        padding: 8px 14px;
+        cursor: pointer;
+        font-weight: 500;
+        transition: background-color 0.2s ease;
+    }
+
+        .filters button:hover {
+            background-color: var(--deep-rose);
+        }
+
+/*Puppy Details Page---------------------------*/
+/* make cards positionable for the corner heart */
+.puppy-card {
+    position: relative;
+}
+
+/* heart button in card corner */
+.heart-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    z-index: 10;
+}
+    .heart-btn:hover .heart {
+        transform: scale(1.25);
+    }
+
+
+.heart-btn:hover,
+.heart-btn:focus,
+.heart-btn:active {
+    background: none !important;
+    border: none !important;
+    outline: none !important;
+    box-shadow: none !important;
+}
+
+.heart {
+    fill: none;
+    stroke: var(--deep-rose);
+    stroke-width: 2.5px;
+}
+
+.heart.filled {
+    fill: var(--dark-pink);
+    stroke: var(--dark-pink);
+}
+
+/* navbar heart */
+.nav-heart {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 10px;
+    border-radius: 999px;
+    background: rgba(255,255,255,.18);
+}
+
+
+    .nav-heart .nav-heart-count {
+        font-weight: 700;
+        color: var(--white);
+    }
+
+/* details page hero */
+.puppy-details-wrapper {
+    display: flex;
+    gap: 40px;
+    align-items: flex-start;
+    margin-top: 20px;
+}
+
+.puppy-details-image {
+    width: 300px;
+    object-fit: cover;
+    border-radius: 14px;
+    border: 4px solid var(--medium-pink);
+}
+
+.puppy-details-text {
+    flex: 1;
+    max-width: 650px;
+}
+
+.back-btn-wrapper {
+    text-align: center;
+    margin-top: 25px;
+}
+
+.back-btn {
+    background-color: var(--dark-pink);
+    color: var(--white);
+    border: none;
+    border-radius: 6px;
+    padding: 10px 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+    .back-btn:hover {
+        background-color: var(--deep-rose);
+    }
+
+
+/*Hero section for home page-------------------------------------*/
+.hero-border-box {
+    background-color: var(--white); /* Inside is white */
+    border: 5px solid var(--medium-pink); /* Pretty pink border */
+    border-radius: 20px; /* Rounded corners */
+    padding: 40px; /* Space inside the box */
+    width: fit-content; /* Shrinks to content width */
+    margin: 40px auto; /* Center on the page */
+    text-align: center; /* Center text */
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1); /* Soft glow */
+}
+
+.hero {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    min-height: 90vh;
+    padding: 0 6%;
+    gap: 60px;
+    background-color: var(--white);
+}
+
+.hero-text {
+    flex: 1;
+    max-width: 520px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    text-align: center;
+    font-family: 'Quicksand', sans-serif;
+    color: var(--dark-pink);
+}
+
+    .hero-text h1 {
+        font-size: 3.5rem;
+        font-weight: 800;
+        line-height: 1.2;
+        color: var(--dark-pink);
+        margin-bottom: 20px;
+    }
+
+.subheading {
+    font-size: 1.25rem;
+    font-weight: 400;
+    color: var(--deep-pink);
+    margin-bottom: 30px;
+    font-family: 'Quicksand', sans-serif;
+    letter-spacing: 0.5px;
+    text-align:center;
+}
+
+.cta-button {
+    display: inline-block;
+    background-color: var(--dark-pink);
+    color: var(--white);
+    border: none;
+    border-radius: 8px;
+    text-align:center;
+    padding: 14px 28px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+    .cta-button:hover {
+        background-color: var(--deep-rose);
+        transform: translateY(-2px);
+    }
+
+.hero-image {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+    .hero-image img {
+        width: 100%;
+        max-width: 450px;
+        height: auto;
+        border-radius: 10px;
+        object-fit: cover;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    }
+
+/* Responsive layout */
+@media (max-width: 900px) {
+    .hero {
+        flex-direction: column;
+        text-align: center;
+        gap: 40px;
+        padding: 80px 5%;
+    }
+
+    .hero-text {
+        align-items: center;
+        text-align: center;
+    }
+
+    .hero-image img {
+        max-width: 300px;
+    }
+}
+
+
+/* Two-column hero layout */
+.hero-carousel-two-col {
+    display: flex;
+    gap: 40px;
+    align-items: center;
+    justify-content: center;
+    margin-top: 30px;
+    margin-bottom: 40px;
+}
+
+/* Left column: carousel */
+.carousel-left {
+    flex: 1;
+    max-width: 600px;
+}
+
+/* Right column: welcome text */
+.hero-right {
+    flex: 1;
+    text-align: left;
+    padding-right: 30px;
+}
+
+    .hero-right h1 {
+        font-size: 3rem;
+        color: var(--dark-brown);
+    }
+
+    .hero-right .subheading {
+        font-size: 1.4rem;
+        margin: 10px 0 20px;
+        color: var(--accent);
+    }
+
+/* Carousel base styling (same as before) */
+
+/* Two-column hero layout */
+.hero-carousel-two-col {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 40px;
+    margin: 40px auto;
+    max-width: 1200px;
+    margin-top: 30px;
+}
+
+/* Left column */
+.carousel-left {
+    flex: 1;
+    max-width: 550px;
+}
+
+/* Right column */
+.hero-right {
+    flex: 1;
+    text-align: center;
+}
+
+/* CAROUSEL BASE */
+.carousel {
+    position: relative;
+    width: 100%;
+    height: 400px;
+    overflow: hidden;
+    border-radius: 20px;
+}
+
+/* UL must be positioned */
+.slides {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    position: relative;
+}
+
+/* Each slide */
+.slide {
+    position: absolute;
+    opacity: 0;
+    width: 100%;
+    height: 100%;
+    transition: opacity .5s ease-in-out;
+}
+
+/* Show only the active slide */
+/* SHOW ACTIVE SLIDE (supports 6 slides) */
+#slide-1:checked ~ .carousel .slides li:nth-child(1),
+#slide-2:checked ~ .carousel .slides li:nth-child(2),
+#slide-3:checked ~ .carousel .slides li:nth-child(3),
+#slide-4:checked ~ .carousel .slides li:nth-child(4),
+#slide-5:checked ~ .carousel .slides li:nth-child(5),
+#slide-6:checked ~ .carousel .slides li:nth-child(6) {
+    opacity: 1;
+    position: absolute;
+    z-index: 2;
+}
+
+/* Default hidden slides */
+.slides li {
+    opacity: 0;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    transition: opacity 0.5s ease-in-out;
+}
+
+/* Slide images */
+.slide img {
+    width: 100%;
+    height: 400px;
+    object-fit: cover;
+    border-radius: 20px;
+}
+
+/* Arrow controls */
+.carousel-controls {
+    position: absolute;
+    top: 50%;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    pointer-events: none;
+}
+
+    .carousel-controls label {
+        pointer-events: all;
+        cursor: pointer;
+        font-size: 3rem;
+        color: white;
+        padding: 0 10px;
+        text-shadow: 0 0 6px black;
+    }
+
+/* Dots */
+.carousel-dots {
+    text-align: center;
+    margin-top: 10px;
+}
+
+.carousel-dot {
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    margin: 5px;
+    border-radius: 50%;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #bbb;
+    cursor: pointer;
+}
+
+
+
+/*ABOUT PAGE--------------------------------------------------*/
+
+/* ABOUT PAGE */
+.about-page {
+    text-align: center;
+}
+
+.about-title {
+    font-size: 32px;
+    color: var(--dark-pink);
+    margin-bottom: 12px;
+}
+
+.about-intro {
+    max-width: 700px;
+    margin: 0 auto 2rem;
+    font-size: 18px;
+    color: #5a4a4a;
+    line-height: 1.6;
+}
+
+/* STAFF LAYOUT — all in one row */
+.staff-container {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    flex-wrap: nowrap; /* prevents wrapping */
+    margin-top: 2rem;
+    overflow-x: auto; /* prevents breaking on small screens */
+    padding: 10px;
+}
+
+/* STAFF CARD STYLING */
+.staff-card {
+    background: var(--light-pink);
+    border: 2px solid var(--dark-pink);
+    border-radius: 18px;
+    padding: 20px;
+    width: 260px;
+    text-align: center;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+    .staff-card:hover {
+        transform: translateY(-4px);
+        transition: 0.2s ease-in-out;
+    }
+
+/* STAFF PHOTO */
+.staff-photo {
+    width: 100%;
+    height: 300px;
+    object-fit: cover;
+    border-radius: 14px;
+    margin-bottom: 15px;
+}
+
+/* STAFF TEXT */
+.staff-name {
+    font-size: 20px;
+    color: var(--dark-pink);
+    margin: 0;
+}
+
+.staff-role {
+    font-weight: 600;
+    color: #5a4a4a;
+    margin-bottom: 10px;
+}
+
+.staff-desc {
+    font-size: 15px;
+    line-height: 1.5;
+    color: #6b5555;
+}
+
+
+/* ------------------------------- */
+/* PuppyStore - Login/Create Pages */
+/* ------------------------------- */
+
+/* Layout container */
+.login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 50px;
+    min-height: 80vh;
+    font-family: 'Quicksand', sans-serif;
+}
+
+/* LEFT IMAGE */
+.login-left {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.login-image {
+    width: 380px;
+    height: 380px;
+    object-fit: cover;
+    border-radius: 25px;
+    border: 6px solid white;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+}
+
+/* RIGHT LOGIN BOX */
+.login-box {
+    background: white;
+    width: 380px;
+    padding: 35px;
+    border-radius: 25px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.12);
+    border: 2px solid var(--dark-pink);
+    text-align: center;
+}
+
+.login-heading {
+    font-size: 28px;
+    color: var(--dark-pink);
+    margin-bottom: 25px;
+}
+
+.welcome-heading {
+    font-size: 26px;
+    color: var(--dark-pink);
+    margin-bottom: 30px;
+}
+
+/* INPUTS */
+.input-wrapper {
+    position: relative;
+    margin-bottom: 18px;
+}
+
+    .input-wrapper input {
+        width: 100%;
+        padding: 12px 45px 12px 15px;
+        border-radius: 12px;
+        border: 2px solid #ddd;
+        font-size: 16px;
+        outline: none;
+        transition: 0.2s;
+    }
+
+        .input-wrapper input:focus {
+            border-color: var(--dark-pink);
+        }
+
+.input-icon {
+    position: absolute;
+    right: 15px;
+    top: 11px;
+    font-size: 18px;
+    opacity: 0.7;
+}
+
+/* LOGIN BUTTON */
+.btn-login {
+    background-color: var(--dark-pink);
+    color: white;
+    border: none;
+    width: 100%;
+    padding: 12px;
+    border-radius: 12px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.2s;
+    margin-top: 12px;
+}
+
+    .btn-login:hover {
+        background-color: var(--medium-pink);
+    }
+
+/* Error message */
+.error-msg {
+    margin-top: 10px;
+    color: red;
+    font-size: 14px;
+}
+/*CART------------------------------*/
+.cart-title {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 32px;
+    margin-bottom: 20px;
+}
+
+.empty-msg {
+    font-size: 18px;
+    color: #555;
+    margin-bottom: 15px;
+}
+
+.cart-section, .favorites-section {
+    margin-top: 30px;
+}
+
+.cart-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.cart-card {
+    background: white;
+    padding: 16px;
+    border-radius: 12px;
+    width: 220px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    text-align: center;
+}
+
+    .cart-card img {
+        width: 200px;
+        height: 200px;
+        object-fit: cover;
+        border-radius: 12px;
+        border: 4px solid var(--medium-pink);
+    }
+
+.price {
+    font-weight: bold;
+    color: var(--dark-pink);
+    margin-bottom: 10px;
+}
+
+/* BUTTONS */
+.btn-primary {
+    background-color: var(--dark-pink);
+    color: var(--white);
+    border: none;
+    border-radius: 6px;
+    padding: 10px 16px;
+    font-weight: 800;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+    .btn-primary:hover {
+        background-color: #b0547a;
+    }
+
+.btn-secondary {
+    background-color: var(--dark-pink);
+    color: var(--white);
+    border: none;
+    border-radius: 6px;
+    padding: 10px 16px;
+    font-weight: 800;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+    .btn-secondary:hover {
+        background-color: #ffebf4;
+    }
+
+
+.add-cart-btn {
+    display: block;
+    margin: 20px auto; /* centers it */
+    padding: 12px 20px;
+    background-color: var(--dark-pink);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-family: 'Quicksand', sans-serif;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.2s ease-in-out;
+}
+
+    .add-cart-btn:hover {
+        background-color: #b0547a; /* lighter dark pink */
+    }
+
+.back-to-puppies-btn {
+    background: none;
+    border: none;
+    color: var(--dark-pink);
+    font-family: 'Quicksand', sans-serif;
+    font-size: 1rem;
+    font-weight: 700;
+    text-decoration: underline;
+    cursor: pointer;
+    padding: 0;
+    margin-top: 18px;
+}
+
+    .back-to-puppies-btn:hover {
+        color: white;
+        background-color: var(--dark-pink);
+        border-radius: 6px;
+        padding: 4px 8px;
+    }
+.back-btn-wrapper {
+    text-align: center;
+    margin-top: 10px;
+}
+
+.back-link {
+    width: 100%;
+    text-align: center; /* centers the link block */
+    margin-top: 20px;
+}
+
+    .back-link a {
+        color: #ff7ca8;
+        text-decoration: underline; /* underline */
+        font-weight: bold;
+        cursor: pointer;
+        padding: 8px 14px;
+        border-radius: 6px;
+        transition: 0.2s ease-in-out;
+    }
+
+        /* Hover effect: dark pink background, white text */
+        .back-link a:hover {
+            background-color: #ff5f98; /* darker pink */
+            color: white;
+        }
+
+
+/* ============================================================
+   RESPONSIVE STYLESHEET FOR MOBILE + TABLET
+   ============================================================ */
+
+/* ----- GLOBAL ----- */
+@media (max-width: 900px) {
+    body {
+        margin-top: 120px; /* account for stacked header */
+    }
+
+    .page-body {
+        padding: 20px;
+    }
+
+    img {
+        max-width: 100%;
+        height: auto;
+    }
+}
+
+
+
+/* ===========================================
+   MOBILE MENU
+=========================================== */
+
+.mobile-menu {
+    position: fixed;
+    top: 90px;
+    right: 0;
+    width: 100%;
+    background: var(--white);
+    border-bottom: 4px solid var(--medium-pink);
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 25px;
+    transform: translateY(-120%);
+    transition: 0.35s ease-in-out;
+    z-index: 900;
+}
+
+    .mobile-menu.open {
+        transform: translateY(0);
+    }
+
+.mobile-link {
+    color: var(--dark-pink);
+    font-weight: 700;
+    text-decoration: none;
+    font-size: 1.2rem;
+}
+
+
+/* ===========================================
+   RESPONSIVE BEHAVIOR
+=========================================== */
+
+@media (max-width: 900px) {
+
+    /* Bigger visual focus on logo */
+    .logo {
+        height: 150px;
+    }
+
+    /* Hide desktop nav */
+    .desktop-nav {
+        display: none;
+    }
+
+    /* Show hamburger on mobile */
+    .hamburger {
+        display: flex;
+    }
+}
+
+@media (max-width: 600px) {
+
+    .logo {
+        height: 140px;
+    }
+
+    .mobile-menu {
+        padding: 20px;
+    }
+
+    .mobile-link {
+        font-size: 1.1rem;
+    }
+}
+
+/* ----- HERO SECTION ----- */
+@media (max-width: 900px) {
+    .hero {
+        flex-direction: column;
+        text-align: center;
+        padding: 40px 20px;
+    }
+
+    .hero-text h1 {
+        font-size: 2.2rem;
+    }
+
+    .hero-image img {
+        max-width: 250px;
+    }
+
+    .hero-border-box {
+        width: 90%;
+        padding: 25px;
+    }
+}
+
+/* HERO + CAROUSEL 2 COLUMN */
+@media (max-width: 900px) {
+    .hero-carousel-two-col {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .carousel-left {
+        max-width: 100%;
+    }
+
+    .hero-right {
+        padding: 0;
+    }
+}
+
+/* ----- CAROUSEL FIXES ----- */
+@media (max-width: 768px) {
+    .carousel {
+        height: 260px;
+    }
+
+    .slide img {
+        height: 260px;
+    }
+
+    .carousel-controls label {
+        font-size: 2rem;
+    }
+
+    .carousel-dot {
+        width: 10px;
+        height: 10px;
+    }
+}
+
+/* ----- PUPPY GRID ----- */
+@media (max-width: 768px) {
+    .puppy-grid {
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+        gap: 20px;
+    }
+
+    .puppy-card {
+        width: 180px;
+        padding: 10px;
+    }
+
+        .puppy-card img {
+            width: 150px;
+            height: 150px;
+        }
+}
+
+/* ----- PUPPY DETAILS PAGE ----- */
+@media (max-width: 850px) {
+    .puppy-details-wrapper {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    .puppy-details-image {
+        width: 80%;
+        max-width: 300px;
+    }
+
+    .puppy-details-text {
+        max-width: 90%;
+    }
+}
+
+/* ----- STAFF PAGE ----- */
+@media (max-width: 900px) {
+    .staff-container {
+        flex-wrap: wrap;
+        justify-content: center;
+        overflow-x: visible;
+    }
+
+    .staff-card {
+        width: 80%;
+        max-width: 280px;
+    }
+
+    .staff-photo {
+        height: 240px;
+    }
+}
+
+/* ----- LOGIN & CREATE ACCOUNT ----- */
+@media (max-width: 900px) {
+    .login-container {
+        flex-direction: column;
+        gap: 30px;
+        padding: 20px;
+    }
+
+    .login-image {
+        width: 250px;
+        height: 250px;
+    }
+
+    .login-box {
+        width: 90%;
+        padding: 25px;
+    }
+}
+
+/* ----- CART PAGE ----- */
+@media (max-width: 850px) {
+    .cart-grid {
+        justify-content: center;
+    }
+
+    .cart-card {
+        width: 180px;
+    }
+
+        .cart-card img {
+            width: 150px;
+            height: 150px;
+        }
+}
+
+/* ----- BUTTONS ON MOBILE ----- */
+@media (max-width: 768px) {
+    .btn-primary,
+    .btn-secondary,
+    .button,
+    .cta-button,
+    .add-cart-btn {
+        width: 100%;
+        text-align: center;
+        padding: 12px;
+        font-size: 1rem;
+    }
+}
+
+/* ============================================================
+   ABOUT PAGE — MOBILE + TABLET RESPONSIVE FIXES
+   ============================================================ */
+
+@media (max-width: 1000px) {
+    .about-wrapper {
+        flex-direction: column;
+        padding: 30px;
+        gap: 30px;
+    }
+
+    .about-right {
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 15px;
+    }
+
+    .about-photo {
+        width: 45%;
+        height: 220px;
+    }
+}
+
+@media (max-width: 700px) {
+
+    .about-wrapper {
+        padding: 20px;
+        gap: 20px;
+    }
+
+    .about-left,
+    .about-right {
+        width: 100%;
+    }
+
+    .about-heading {
+        font-size: 30px;
+    }
+
+    .about-subtitle {
+        font-size: 22px;
+    }
+
+    .about-title {
+        font-size: 20px;
+    }
+
+    .about-text {
+        font-size: 16px;
+        line-height: 1.6;
+    }
+
+    .about-right {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .about-photo {
+        width: 100%;
+        max-width: 350px;
+        height: 200px;
+    }
+
+    .meet-btn {
+        width: 100%;
+        text-align: center;
+        font-size: 16px;
+        padding: 12px 16px;
+    }
+}
+
+@media (max-width: 450px) {
+    .about-heading {
+        font-size: 26px;
+    }
+
+    .about-subtitle {
+        font-size: 20px;
+    }
+
+    .about-text {
+        font-size: 15px;
+    }
+
+    .about-photo {
+        height: 180px;
+    }
+}
+
+/* ============================================================
+   AVAILABLE PUPPIES — MOBILE + TABLET RESPONSIVE FIXES
+   ============================================================ */
+
+/* FILTER BAR */
+@media (max-width: 850px) {
+    .filters {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 12px;
+        padding: 20px;
+    }
+
+        .filters select,
+        .filters button {
+            width: 100%;
+            font-size: 1rem;
+            padding: 10px;
+        }
+}
+
+/* GRID LAYOUT */
+@media (max-width: 900px) {
+    .puppy-grid {
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 20px;
+        justify-items: center;
+    }
+
+    .puppy-card {
+        width: 200px;
+        padding: 12px;
+    }
+
+        .puppy-card img {
+            width: 160px;
+            height: 160px;
+        }
+}
+
+/* SMALL PHONE SCREENS */
+@media (max-width: 600px) {
+    .puppy-grid {
+        grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    }
+
+    .puppy-card {
+        width: 165px;
+        padding: 10px;
+    }
+
+        .puppy-card img {
+            width: 140px;
+            height: 140px;
+        }
+}
+
+/* ============================================================
+   CART PAGE — MOBILE + TABLET RESPONSIVE FIXES
+   ============================================================ */
+
+/* GENERAL RESPONSIVENESS */
+@media (max-width: 900px) {
+    .cart-section {
+        padding: 0 20px;
+    }
+
+    .favorites-section {
+        padding: 0 20px;
+    }
+
+    h1.cart-title {
+        font-size: 28px;
+        text-align: center;
+    }
+
+    .checkout-container {
+        margin-top: 20px;
+    }
+}
+
+/* CART GRID — TABLET */
+@media (max-width: 900px) {
+    .cart-grid {
+        justify-content: center;
+        gap: 20px;
+    }
+
+    .cart-card {
+        width: 220px;
+        padding: 14px;
+    }
+
+        .cart-card img {
+            width: 180px;
+            height: 180px;
+        }
+}
+
+/* CART GRID — MOBILE */
+@media (max-width: 650px) {
+
+    .cart-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+        justify-items: center;
+        gap: 20px;
+    }
+
+    .cart-card {
+        width: 160px;
+        padding: 12px;
+        text-align: center;
+    }
+
+        .cart-card img {
+            width: 130px;
+            height: 130px;
+        }
+
+        .cart-card h3 {
+            font-size: 1rem;
+        }
+
+        .cart-card p {
+            font-size: 0.85rem;
+        }
+
+        /* Make remove buttons fit nicely */
+        .cart-card .btn-primary {
+            width: 100%;
+            padding: 8px 10px;
+            font-size: 0.9rem;
+        }
+
+    /* Add-to-cart buttons in favorites */
+    .favorite-card .btn-primary {
+        width: 100%;
+        padding: 8px 10px;
+        font-size: 0.9rem;
+    }
+
+    .back-link {
+        font-size: 0.85rem;
+        padding: 6px 10px;
+    }
+}
+
+/* EXTRA SMALL SCREENS (iPhone SE) */
+@media (max-width: 420px) {
+
+    .cart-card {
+        width: 145px;
+        padding: 10px;
+    }
+
+        .cart-card img {
+            width: 115px;
+            height: 115px;
+        }
+
+        .cart-card h3 {
+            font-size: 0.9rem;
+        }
+
+        .cart-card p {
+            font-size: 0.75rem;
+        }
+
+    h1.cart-title {
+        font-size: 24px;
+    }
+
+    .btn-checkout {
+        width: 100%;
+        padding: 12px;
+        font-size: 1rem;
+    }
+}
+
+/* LOGIN REMINDER FIX (makes link wrap properly on mobile) */
+@media (max-width: 600px) {
+    .login-reminder {
+        text-align: center;
+        font-size: 0.95rem;
+        line-height: 1.4;
+    }
+
+        .login-reminder a {
+            display: inline-block;
+            margin-top: 4px;
+        }
+}
+
+/* CHECKOUT BUTTON — FULL WIDTH ON SMALL SCREENS */
+@media (max-width: 600px) {
+    .btn-checkout {
+        width: 100%;
+        padding: 14px;
+        font-size: 1rem;
+    }
+}
+/* ============================================================
+   CHECKOUT PAGE — MOBILE + TABLET RESPONSIVE FIXES
+   ============================================================ */
+
+/* GENERAL LAYOUT */
+@media (max-width: 900px) {
+    .checkout-page {
+        padding: 0 20px;
+        max-width: 600px;
+    }
+
+    h1 {
+        text-align: center;
+        font-size: 28px;
+    }
+
+    h2 {
+        text-align: center;
+        font-size: 22px;
+    }
+}
+
+/* ITEM LIST — TABLET */
+@media (max-width: 850px) {
+
+    .checkout-item {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        padding: 12px 0;
+    }
+
+    .checkout-img {
+        width: 100px;
+        height: 100px;
+    }
+}
+
+/* ITEM LIST — MOBILE */
+@media (max-width: 650px) {
+
+    .checkout-item {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        padding: 15px 0;
+        border-bottom: 1px solid #eee;
+    }
+
+    .checkout-img {
+        width: 140px;
+        height: 140px;
+        margin-bottom: 8px;
+    }
+
+    .checkout-info h3 {
+        font-size: 1.1rem;
+    }
+
+    .checkout-info p {
+        font-size: 0.9rem;
+    }
+}
+
+/* SUMMARY BOX */
+@media (max-width: 650px) {
+    .summary-box {
+        padding: 16px;
+        font-size: 0.95rem;
+    }
+
+    .summary-total {
+        font-size: 18px;
+    }
+}
+
+/* PLACE ORDER BUTTON */
+@media (max-width: 650px) {
+    .place-order {
+        width: 100%;
+        padding: 12px;
+        font-size: 1rem;
+        margin-top: 16px;
+    }
+}
+
+/* WARNING BOX (not logged in) */
+@media (max-width: 600px) {
+    .warning-box {
+        width: 90%;
+        padding: 15px;
+        font-size: 0.95rem;
+    }
+
+    .btn-primary {
+        width: 100%;
+        padding: 10px;
+    }
+}
+
+/* LOADING MESSAGE */
+@media (max-width: 600px) {
+    .loading-message {
+        font-size: 1rem;
+    }
+}
+/* ============================================================
+   CONTACT PAGE RESPONSIVENESS — FOR ALL DEVICES
+   ============================================================ */
+
+/* ----------- TABLETS & SMALL LAPTOPS (≤ 900px) ----------- */
+@media (max-width: 900px) {
+    .contact-wrapper {
+        flex-direction: column;
+        gap: 25px;
+        padding: 0 20px;
+    }
+
+    .contact-box {
+        max-width: 95%;
+        padding: 25px;
+    }
+
+        .contact-box h1,
+        .contact-box h2 {
+            font-size: 1.8rem;
+        }
+
+    .contact-info p {
+        font-size: 1rem;
+    }
+
+    .form-input,
+    .form-textarea {
+        font-size: 1rem;
+    }
+}
+
+/* ------------------- MOBILE DEVICES (≤ 650px) ------------------- */
+@media (max-width: 650px) {
+    .contact-wrapper {
+        gap: 20px;
+        margin-top: 20px;
+    }
+
+    .contact-box {
+        padding: 20px;
+        border-width: 2px;
+        width: 95%;
+    }
+
+        .contact-box h1,
+        .contact-box h2 {
+            font-size: 1.5rem;
+            text-align: center;
+        }
+
+    .contact-info p {
+        font-size: 0.95rem;
+        text-align: left;
+    }
+
+    .form-input,
+    .form-textarea {
+        width: 100%;
+        padding: 10px;
+        font-size: 0.95rem;
+    }
+
+    button.btn-primary {
+        padding: 12px;
+        font-size: 1rem;
+    }
+}
+
+/* ---------------- EXTRA SMALL PHONES (≤ 420px) ---------------- */
+@media (max-width: 420px) {
+    .contact-box {
+        padding: 15px;
+        width: 100%;
+    }
+
+        .contact-box h1,
+        .contact-box h2 {
+            font-size: 1.3rem;
+        }
+
+    .contact-info p,
+    .form-input,
+    .form-textarea {
+        font-size: 0.9rem;
+    }
+
+    button.btn-primary {
+        padding: 10px;
+        font-size: 0.9rem;
+    }
+}
+
+/* ============================================================
+   CREATE USER PAGE — MOBILE + TABLET RESPONSIVE FIXES
+   ============================================================ */
+
+/* Tablet adjustments */
+@media (max-width: 900px) {
+
+    .auth-container {
+        padding: 30px 20px;
+        height: auto; /* prevent vertical clipping */
+    }
+
+    .auth-box {
+        margin-top: 100px;
+        margin-bottom: 60px;
+        padding: 30px;
+    }
+
+        .auth-box h2 {
+            font-size: 24px;
+        }
+}
+
+/* Mobile adjustments */
+@media (max-width: 650px) {
+
+    .auth-container {
+        padding: 20px 15px;
+        height: auto;
+    }
+
+    .auth-box {
+        width: 100%;
+        max-width: 360px;
+        padding: 25px;
+        margin-top: 80px;
+        margin-bottom: 40px;
+    }
+
+        .auth-box h2 {
+            font-size: 22px;
+            margin-bottom: 14px;
+        }
+
+    label {
+        font-size: 0.95rem;
+        margin: 8px 0 4px;
+    }
+
+    .form-input {
+        font-size: 15px;
+        padding: 10px;
+    }
+
+    .btn-primary {
+        font-size: 1rem;
+        padding: 10px;
+        border-radius: 8px;
+    }
+
+    .login-link {
+        font-size: 0.95rem;
+        margin-top: 12px;
+    }
+
+    .auth-message {
+        font-size: 0.95rem;
+    }
+}
+
+/* Extra small screens (iPhone SE, older Android) */
+@media (max-width: 420px) {
+
+    .auth-box {
+        padding: 20px;
+        margin-top: 60px;
+        margin-bottom: 30px;
+    }
+
+        .auth-box h2 {
+            font-size: 20px;
+        }
+
+    .form-input {
+        font-size: 14px;
+        padding: 8px;
+    }
+
+    .btn-primary {
+        font-size: 0.9rem;
+        padding: 10px;
+    }
+}
+/* ============================================================
+   HOME PAGE (HERO + CAROUSEL + STAFF) RESPONSIVE FIXES
+   ============================================================ */
+
+/* ----------------------------
+   HERO TWO-COLUMN → STACKED
+---------------------------- */
+@media (max-width: 1000px) {
+
+    .hero-carousel-two-col {
+        flex-direction: column;
+        align-items: center;
+        gap: 35px;
+        padding: 20px;
+        text-align: center;
+    }
+
+    .carousel-left,
+    .hero-right {
+        width: 100%;
+        max-width: 600px;
+    }
+
+        .hero-right h1 {
+            font-size: 2.4rem;
+        }
+
+    .subheading {
+        font-size: 1.2rem;
+    }
+
+    .cta-button {
+        width: 100%;
+        padding: 14px;
+        font-size: 1.1rem;
+    }
+}
+
+/* ------------------------------------
+   CAROUSEL RESIZING (TABLET)
+------------------------------------ */
+@media (max-width: 850px) {
+
+    .carousel {
+        height: 300px;
+    }
+
+    .slide img {
+        height: 300px;
+    }
+
+    .carousel-controls label {
+        font-size: 2.2rem;
+    }
+}
+
+/* -------------------------------------
+   CAROUSEL RESIZING (MOBILE)
+------------------------------------- */
+@media (max-width: 600px) {
+
+    .carousel {
+        height: 220px;
+    }
+
+    .slide img {
+        height: 220px;
+    }
+
+    .carousel-controls label {
+        font-size: 1.8rem;
+        padding: 0 6px;
+    }
+
+    .carousel-dots {
+        margin-top: 6px;
+    }
+
+    .carousel-dot {
+        width: 10px;
+        height: 10px;
+    }
+}
+
+/* -------------------------------------
+   EXTRA SMALL PHONES (iPhone SE)
+------------------------------------- */
+@media (max-width: 420px) {
+
+    .carousel {
+        height: 180px;
+    }
+
+    .slide img {
+        height: 180px;
+    }
+
+    .hero-right h1 {
+        font-size: 1.8rem;
+    }
+
+    .cta-button {
+        padding: 12px;
+        font-size: 1rem;
+    }
+}
+
+/* ============================================================
+   STAFF SECTION RESPONSIVE
+============================================================ */
+
+/* Make staff cards wrap nicely */
+@media (max-width: 900px) {
+    .staff-container {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 25px;
+        padding: 0 10px;
+    }
+
+    .staff-card {
+        width: 300px;
+    }
+
+    .staff-photo {
+        height: 260px;
+    }
+}
+
+/* Mobile staff layout */
+@media (max-width: 600px) {
+
+    .about-page {
+        padding: 0 10px;
+        text-align: center;
+    }
+
+    .about-title {
+        font-size: 1.6rem;
+    }
+
+    .staff-card {
+        width: 90%;
+        max-width: 330px;
+        padding: 18px;
+    }
+
+    .staff-photo {
+        height: 220px;
+    }
+
+    .staff-desc {
+        font-size: 0.95rem;
+    }
+
+    .btn-primary {
+        width: 100%;
+        margin-top: 15px;
+    }
+}
+
+/* Very small phones */
+@media (max-width: 400px) {
+    .staff-card {
+        width: 100%;
+    }
+
+    .staff-photo {
+        height: 200px;
+    }
+}
+/* ============================================================
+   LANDING PAGE — RESPONSIVE FIXES
+   ============================================================ */
+
+@media (max-width: 900px) {
+    .auth-container {
+        padding: 30px 20px;
+    }
+
+    .auth-box h2 {
+        font-size: 26px;
+    }
+
+    .auth-box h3 {
+        font-size: 20px;
+    }
+}
+
+@media (max-width: 650px) {
+    .auth-container {
+        padding: 20px 15px;
+        height: auto; /* prevents clipping */
+    }
+
+    .auth-box {
+        width: 100%;
+        max-width: 360px;
+        padding: 25px;
+        margin-top: 80px;
+        margin-bottom: 40px;
+        text-align: center;
+    }
+
+        .auth-box h2 {
+            font-size: 22px;
+        }
+
+        .auth-box h3 {
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+
+        .auth-box p {
+            font-size: 0.95rem;
+        }
+
+        .auth-box a {
+            display: inline-block;
+            margin-top: 14px;
+            font-size: 1rem;
+            text-decoration: underline;
+        }
+}
+
+@media (max-width: 420px) {
+    .auth-box {
+        padding: 20px;
+    }
+
+        .auth-box h2 {
+            font-size: 20px;
+        }
+
+        .auth-box h3 {
+            font-size: 16px;
+        }
+
+        .auth-box p,
+        .auth-box a {
+            font-size: 0.9rem;
+        }
+}
+/* ============================================================
+   LOGIN PAGE — MOBILE + TABLET RESPONSIVE FIXES
+   ============================================================ */
+
+/* ------------------------------
+   TABLET (≤ 900px)
+------------------------------ */
+@media (max-width: 900px) {
+
+    .login-container {
+        flex-direction: column;
+        gap: 30px;
+        padding: 20px;
+        height: auto;
+    }
+
+    .login-left {
+        display: flex;
+        justify-content: center;
+        width: 100%;
+    }
+
+    .login-image {
+        width: 300px;
+        height: 300px;
+        border-radius: 20px;
+    }
+
+    .login-box {
+        width: 100%;
+        max-width: 420px;
+        padding: 30px;
+        margin-top: 0;
+        text-align: center;
+    }
+}
+
+/* ------------------------------
+   MOBILE (≤ 650px)
+------------------------------ */
+@media (max-width: 650px) {
+
+    .login-container {
+        padding: 20px 10px;
+    }
+
+    .login-left {
+        order: 2; /* image under the login box */
+    }
+
+    .login-box {
+        order: 1; /* login box on top */
+        max-width: 360px;
+        padding: 25px;
+    }
+
+    .welcome-heading,
+    .login-heading {
+        font-size: 22px;
+    }
+
+    .form-group label {
+        font-size: 1rem;
+        margin-bottom: 4px;
+    }
+
+    .login-input {
+        width: 100%;
+        font-size: 15px;
+        padding: 10px;
+        border-radius: 8px;
+    }
+
+    .login-btn {
+        width: 100%;
+        padding: 12px;
+        border-radius: 10px;
+        font-size: 1rem;
+    }
+
+    .btn-link {
+        font-size: 0.95rem;
+    }
+}
+
+/* ------------------------------
+   EXTRA SMALL PHONES (≤ 420px)
+------------------------------ */
+@media (max-width: 420px) {
+
+    .login-image {
+        width: 220px;
+        height: 220px;
+    }
+
+    .login-box {
+        padding: 20px;
+    }
+
+    .login-input {
+        font-size: 14px;
+        padding: 8px;
+    }
+
+    .login-btn {
+        padding: 10px;
+        font-size: 0.9rem;
+    }
+
+    .welcome-heading,
+    .login-heading {
+        font-size: 20px;
+    }
+}
+/* ============================================================
+   ORDER SUMMARY PAGE — MOBILE + TABLET RESPONSIVENESS
+   ============================================================ */
+
+/* ---------- TABLETS & SMALL LAPTOPS (≤ 900px) ---------- */
+@media (max-width: 900px) {
+    .receipt-box {
+        padding: 25px;
+        max-width: 90%;
+    }
+
+    .title {
+        font-size: 28px;
+    }
+
+    .section-title {
+        font-size: 20px;
+    }
+
+    .receipt-item {
+        gap: 10px;
+    }
+}
+
+/* ---------- MOBILE (≤ 650px) ---------- */
+@media (max-width: 650px) {
+
+    .title {
+        font-size: 24px;
+        margin-bottom: 15px;
+    }
+
+    .receipt-box {
+        padding: 20px;
+        border-width: 3px;
+    }
+
+    .receipt-item {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        gap: 10px;
+        padding: 15px 0;
+    }
+
+    .receipt-img {
+        width: 150px;
+        height: 150px;
+        margin: 0;
+    }
+
+    .puppy-name {
+        font-size: 1.1rem;
+        margin-top: 5px;
+    }
+
+    .puppy-breed {
+        font-size: 0.9rem;
+    }
+
+    .price {
+        font-size: 1rem;
+        margin-top: 6px;
+    }
+
+    .totals-box {
+        font-size: 1rem;
+    }
+
+    .grand-total {
+        font-size: 1.3rem;
+    }
+
+    .btn-primary {
+        width: 100%;
+        font-size: 1rem;
+        padding: 12px;
+    }
+}
+
+/* ---------- EXTRA SMALL PHONES (≤ 420px) ---------- */
+@media (max-width: 420px) {
+
+    .receipt-box {
+        padding: 15px;
+        border-width: 2px;
+    }
+
+    .receipt-img {
+        width: 130px;
+        height: 130px;
+    }
+
+    .puppy-name {
+        font-size: 1rem;
+    }
+
+    .price {
+        font-size: 0.95rem;
+    }
+
+    .grand-total {
+        font-size: 1.2rem;
+    }
+
+    .btn-primary {
+        padding: 10px;
+        font-size: 0.95rem;
+    }
+}
+
+/* ---------- EXTRA SMALL PHONES (≤ 420px) ---------- */
+@media (max-width: 420px) {
+
+    .section-box {
+        padding: 16px;
+        width: 95%;
+    }
+
+        .section-box h1 {
+            font-size: 22px;
+        }
+
+        .section-box h2 {
+            font-size: 18px;
+        }
+
+        .section-box p,
+        .section-box li {
+            font-size: 0.9rem;
+        }
+}
+/* ============================================================
+   PUPPY DETAILS PAGE — RESPONSIVE DESIGN
+   ============================================================ */
+
+/* ---------- TABLETS (≤ 900px) ---------- */
+@media (max-width: 900px) {
+    .details-container {
+        flex-direction: column;
+        align-items: center;
+        padding: 30px 20px;
+        gap: 30px;
+    }
+
+    .details-image {
+        width: 330px;
+        height: 330px;
+    }
+
+    .details-info {
+        max-width: 90%;
+        text-align: center;
+    }
+
+        .details-info h2 {
+            font-size: 28px;
+        }
+
+        .details-info p {
+            font-size: 1rem;
+        }
+}
+
+/* ---------- MOBILE DEVICES (≤ 650px) ---------- */
+@media (max-width: 650px) {
+    .details-container {
+        padding: 20px 12px;
+        gap: 20px;
+    }
+
+    .details-image {
+        width: 260px;
+        height: 260px;
+        border-width: 5px;
+    }
+
+    .heart-btn-details {
+        padding: 5px;
+        top: 10px;
+        right: 10px;
+    }
+
+    .heart {
+        width: 24px;
+        height: 24px;
+    }
+
+    .details-info h2 {
+        font-size: 24px;
+    }
+
+    .details-info h3 {
+        font-size: 20px;
+        margin-top: 12px;
+    }
+
+    .details-info p {
+        font-size: 0.95rem;
+        line-height: 1.5;
+    }
+
+    .add-cart-centered {
+        width: 100%;
+        padding: 12px;
+        font-size: 1rem;
+    }
+
+    .back-link a {
+        font-size: 0.95rem;
+        padding: 6px 10px;
+    }
+}
+
+/* ---------- EXTRA SMALL PHONES (≤ 420px) ---------- */
+@media (max-width: 420px) {
+    .details-image {
+        width: 220px;
+        height: 220px;
+        border-width: 4px;
+    }
+
+    .details-info h2 {
+        font-size: 22px;
+    }
+
+    .details-info p {
+        font-size: 0.88rem;
+    }
+
+    .add-cart-centered {
+        font-size: 0.9rem;
+        padding: 10px 14px;
+    }
+
+    .back-link a {
+        font-size: 0.85rem;
+    }
+}

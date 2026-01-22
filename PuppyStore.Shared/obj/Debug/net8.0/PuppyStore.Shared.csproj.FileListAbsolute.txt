@@ -1,0 +1,11 @@
+C:\Users\kayci\source\repos\PuppyStore\PuppyStore.Shared\bin\Debug\net8.0\PuppyStore.Shared.deps.json
+C:\Users\kayci\source\repos\PuppyStore\PuppyStore.Shared\bin\Debug\net8.0\PuppyStore.Shared.dll
+C:\Users\kayci\source\repos\PuppyStore\PuppyStore.Shared\bin\Debug\net8.0\PuppyStore.Shared.pdb
+C:\Users\kayci\source\repos\PuppyStore\PuppyStore.Shared\obj\Debug\net8.0\PuppyStore.Shared.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\kayci\source\repos\PuppyStore\PuppyStore.Shared\obj\Debug\net8.0\PuppyStore.Shared.AssemblyInfoInputs.cache
+C:\Users\kayci\source\repos\PuppyStore\PuppyStore.Shared\obj\Debug\net8.0\PuppyStore.Shared.AssemblyInfo.cs
+C:\Users\kayci\source\repos\PuppyStore\PuppyStore.Shared\obj\Debug\net8.0\PuppyStore.Shared.csproj.CoreCompileInputs.cache
+C:\Users\kayci\source\repos\PuppyStore\PuppyStore.Shared\obj\Debug\net8.0\PuppyStore.Shared.dll
+C:\Users\kayci\source\repos\PuppyStore\PuppyStore.Shared\obj\Debug\net8.0\refint\PuppyStore.Shared.dll
+C:\Users\kayci\source\repos\PuppyStore\PuppyStore.Shared\obj\Debug\net8.0\PuppyStore.Shared.pdb
+C:\Users\kayci\source\repos\PuppyStore\PuppyStore.Shared\obj\Debug\net8.0\ref\PuppyStore.Shared.dll

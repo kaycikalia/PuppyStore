@@ -1,0 +1,196 @@
+﻿@page "/puppy/{id}"
+@inject PuppiesRepository Repo
+@using PuppyStore.Client.Services
+@inject FavoritesService Favorites
+@inject NavigationManager Nav
+@inject CartService CartService
+
+@code {
+    [Parameter] public string? id { get; set; }
+    private PuppiesRepository.Puppy? puppy;
+
+    private bool alreadyAdded = false;
+
+    protected override async Task OnInitializedAsync()
+    {
+        if (!string.IsNullOrWhiteSpace(id))
+            puppy = Repo.FindById(id!.ToLower());
+
+        await CartService.LoadCart();
+        await Favorites.LoadFavorites();
+
+        if (puppy != null)
+        {
+            alreadyAdded = CartService.Cart.Any(c => c.PuppyId == puppy.NumericId);
+        }
+    }
+
+    // ❤️ FIXED: Favorites must use STRING id, not numericId
+    async Task ToggleFav()
+    {
+        if (puppy != null)
+        {
+            await Favorites.ToggleFavorite(puppy.Id);
+            StateHasChanged();
+        }
+    }
+
+
+    void Back() => Nav.NavigateTo("/availablepuppies");
+
+    async Task AddToCart()
+    {
+        if (puppy == null) return;
+
+        if (!alreadyAdded)
+        {
+            await CartService.AddToCart(puppy.NumericId);
+            alreadyAdded = true;
+            StateHasChanged();
+        }
+    }
+}
+
+@if (puppy is null)
+{
+    <div class="section-box">
+        <p>Sorry, we couldn’t find that puppy.</p>
+        <button @onclick="Back">Back to Puppies</button>
+    </div>
+}
+else
+{
+    <div class="details-container">
+
+        <div class="details-image-wrapper">
+            <img src="@puppy.ImageUrl" class="details-image" alt="@puppy.Name" />
+
+            <!-- FAVORITE HEART FIXED -->
+            <button class="heart-btn-details" @onclick="ToggleFav">
+                <svg viewBox="0 0 24 24"
+                     class="@(Favorites.FavoriteIds.Contains(puppy.Id) ? "heart filled" : "heart")">
+                    <path d="M12 21s-6.716-4.35-9.36-7.2C.73 11.6.5 8.9 2.2 7.2
+                                     4 5.4 6.8 5.7 8.4 7.3L12 10.9l3.6-3.6c1.6-1.6
+                                     4.4-1.9 6.2-.1 1.7 1.7 1.5 4.4-.44 6.6C18.7
+                                     16.7 12 21 12 21z" />
+                </svg>
+            </button>
+        </div>
+
+        <div class="details-info">
+            <h2>@puppy.Name</h2>
+
+            <p><b>Breed:</b> @puppy.Breed</p>
+            <p><b>Sex:</b> @puppy.Sex</p>
+            <p><b>Price:</b> @puppy.Price.ToString("C0")</p>
+
+            <h3>About @puppy.Name</h3>
+            <p>@puppy.Description</p>
+
+            <div class="button-center">
+                <button class="btn-primary add-cart-centered"
+                        disabled="@alreadyAdded"
+                        @onclick="AddToCart">
+                    @if (alreadyAdded)
+                    {
+                        <span style="color: limegreen; font-weight: bold;">✓ Added</span>
+                    }
+                    else
+                    {
+                        <span>Add to Cart</span>
+                    }
+                </button>
+
+                <p class="back-link">
+                    <a @onclick="Back">Back to Puppies</a>
+                </p>
+            </div>
+        </div>
+    </div>
+}
+
+<style>
+    .details-container {
+        display: flex;
+        gap: 40px;
+        padding: 40px;
+    }
+
+    .details-image-wrapper {
+        position: relative;
+        display: inline-block;
+    }
+
+    .details-image {
+        width: 400px;
+        height: 400px;
+        object-fit: cover;
+        border-radius: 15px;
+        border: 6px solid #ffb6c1;
+    }
+
+    .heart-btn-details {
+        position: absolute;
+        top: 12px;
+        right: 12px;
+        background: white;
+        border: none;
+        padding: 7px;
+        border-radius: 50%;
+        cursor: pointer;
+        box-shadow: 0px 2px 6px rgba(0,0,0,0.2);
+    }
+
+    .heart {
+        fill: none;
+        stroke: #d36ba0;
+        stroke-width: 2;
+        width: 28px;
+        height: 28px;
+    }
+
+        .heart.filled {
+            fill: #d36ba0;
+            stroke: #d36ba0;
+        }
+
+    .details-info {
+        max-width: 600px;
+    }
+
+    .button-center {
+        width: 100%;
+        text-align: center;
+        margin-top: 20px;
+    }
+
+    .add-cart-centered {
+        display: inline-block;
+        margin-bottom: 10px;
+    }
+
+    .back-link {
+        text-align: center;
+        margin-top: 10px;
+    }
+
+        .back-link a {
+            color: #ff7ca8;
+            text-decoration: underline;
+            font-weight: bold;
+            cursor: pointer;
+            padding: 8px 14px;
+            border-radius: 6px;
+            transition: 0.2s ease-in-out;
+        }
+
+            .back-link a:hover {
+                background-color: #ff5f98;
+                color: white;
+            }
+
+    button[disabled] {
+        cursor: default;
+        opacity: 0.85;
+    }
+</style>

@@ -1,0 +1,194 @@
+﻿@page "/ordersummary"
+@inject CartService CartService
+@inject NavigationManager Nav
+@inject PuppiesRepository Repo
+
+<h1 class="title">Thank You for Your Order! 🎉</h1>
+
+@if (orderItems == null || orderItems.Count == 0)
+{
+    <div class="empty-receipt">
+        <p>No order details found.</p>
+        <button class="btn-primary" @onclick="GoHome">Return Home</button>
+    </div>
+}
+else
+{
+    <div class="receipt-box">
+
+        <p><strong>Receipt Number:</strong> @ReceiptNumber</p>
+        <p><strong>Date:</strong> @OrderDate.ToString("MMMM dd, yyyy - h:mm tt")</p>
+
+        <hr />
+
+        <h2 class="section-title">Purchased Items</h2>
+
+        <div class="items-list">
+            @foreach (var item in orderItems)
+            {
+                var puppy = Repo.All().FirstOrDefault(p => p.NumericId == item.PuppyId);
+
+                if (puppy != null)
+                {
+                    <div class="receipt-item">
+                        <img src="@puppy.ImageUrl" class="receipt-img" />
+                        <div>
+                            <p class="puppy-name">@puppy.Name</p>
+                            <p class="puppy-breed">@puppy.Breed • @puppy.Sex</p>
+                        </div>
+                        <p class="price">@puppy.Price.ToString("C")</p>
+                    </div>
+                }
+            }
+        </div>
+
+        <hr />
+
+        <div class="totals-box">
+            <p><strong>Subtotal:</strong> @Subtotal.ToString("C")</p>
+            <p><strong>Tax (8%):</strong> @Tax.ToString("C")</p>
+            <p class="grand-total"><strong>Total:</strong> @Total.ToString("C")</p>
+        </div>
+
+        <hr />
+
+        <button class="btn-primary return-btn" @onclick="GoHome">
+            Return to Home Page 🏠
+        </button>
+    </div>
+}
+
+@code {
+    private List<CartItem> orderItems = new();
+    private string ReceiptNumber = "";
+    private DateTime OrderDate;
+
+    protected override void OnInitialized()
+    {
+        // ⭐ Copy last order (safe even if empty)
+        orderItems = CartService.LastOrder?.ToList() ?? new List<CartItem>();
+
+        // ⭐ If order is empty, stop here
+        if (orderItems.Count == 0)
+            return;
+
+        // Generate receipt ID only for real orders
+        ReceiptNumber = Guid.NewGuid().ToString("N")[..8].ToUpper();
+
+        // Timestamp
+        OrderDate = DateTime.Now;
+    }
+
+    private decimal Subtotal =>
+        orderItems.Sum(c =>
+            Repo.All().FirstOrDefault(p => p.NumericId == c.PuppyId)?.Price ?? 0
+        );
+
+    private decimal Tax => Subtotal * 0.08m;
+
+    private decimal Total => Subtotal + Tax;
+
+    private void GoHome() => Nav.NavigateTo("/");
+}
+
+
+<style>
+    .title {
+        text-align: center;
+        margin-bottom: 20px;
+        color: #b23a71;
+        font-size: 32px;
+        font-weight: 800;
+    }
+
+    .receipt-box {
+        background: white;
+        padding: 30px;
+        border-radius: 15px;
+        max-width: 700px;
+        margin: auto;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        border: 4px solid #ffd0e2;
+    }
+
+    .section-title {
+        margin-top: 15px;
+        font-size: 22px;
+        color: #a12d61;
+    }
+
+    .items-list {
+        margin-top: 10px;
+    }
+
+    .receipt-item {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 10px 0;
+        border-bottom: 1px solid #eee;
+    }
+
+    .receipt-img {
+        width: 110px;
+        height: 110px;
+        object-fit: cover;
+        border-radius: 10px;
+        border: 2px solid #ffb6c1;
+        margin-right: 15px;
+    }
+
+    .puppy-name {
+        font-weight: 600;
+        font-size: 18px;
+        color: #a12d61;
+    }
+
+    .puppy-breed {
+        font-size: 14px;
+        color: #555;
+        margin-top: -4px;
+    }
+
+    .price {
+        font-weight: bold;
+        color: #a12d61;
+        font-size: 18px;
+        white-space: nowrap;
+    }
+
+    .totals-box {
+        font-size: 18px;
+        margin-top: 10px;
+        color: #5a2a46;
+    }
+
+    .grand-total {
+        font-size: 22px;
+        font-weight: bold;
+        color: #b23a71;
+        margin-top: 10px;
+    }
+
+    .btn-primary {
+        background-color: #ff7cab;
+        color: white;
+        padding: 14px 22px;
+        border-radius: 10px;
+        border: none;
+        font-size: 18px;
+        font-weight: 600;
+        cursor: pointer;
+        margin-top: 20px;
+        transition: 0.2s ease-in-out;
+    }
+
+        .btn-primary:hover {
+            background-color: #ff5f98;
+        }
+
+    .empty-receipt {
+        text-align: center;
+        margin-top: 40px;
+    }
+</style>

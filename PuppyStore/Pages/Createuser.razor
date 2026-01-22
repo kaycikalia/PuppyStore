@@ -1,0 +1,183 @@
+﻿@page "/createuser"
+@page "/createuser/{inviteCode}"
+@using PuppyStore.Client.Services
+@inject NavigationManager Nav
+@inject UserService UserService
+@using PuppyStore.Shared.Models
+@using System.ComponentModel.DataAnnotations
+@inject HttpClient Http
+
+
+<div class="auth-container">
+    <div class="auth-box">
+        <h2>Create Your PuppyStore Account 🐕</h2>
+
+        @if (created)
+        {
+            <p class="auth-message success">🎉 Account created successfully!</p>
+            <button class="btn-primary" @onclick="GoLogin">Go to Login</button>
+        }
+        else
+        {
+            <EditForm Model="@user" OnValidSubmit="CreateUser">
+                <DataAnnotationsValidator />
+                <ValidationSummary />
+
+                <label>First Name</label>
+                <InputText class="form-input" @bind-Value="user.FirstName" />
+
+                <label>Last Name</label>
+                <InputText class="form-input" @bind-Value="user.LastName" />
+
+                <label>Email Address</label>
+                <InputText class="form-input" @bind-Value="user.Email" type="email" />
+
+                <label>Password</label>
+                <InputText class="form-input" @bind-Value="user.Password" type="password" />
+
+                <button class="btn-primary" type="submit">Sign Up</button>
+
+                <p class="auth-message">@message</p>
+
+                <a href="/login" class="login-link">Already have an account? Login</a>
+            </EditForm>
+        }
+    </div>
+</div>
+
+
+<style>
+    :root {
+        --dark-pink: #D12978;
+        --light-pink: #FFE6EB;
+        --medium-pink: #FFB6C1;
+    }
+
+    .auth-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 80vh;
+        padding: 20px;
+    }
+
+    .auth-box {
+        width: 100%;
+        max-width: 420px;
+        padding: 35px;
+        background: var(--white);
+        border-radius: 14px;
+        border: 3px solid var(--medium-pink);
+        box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+        text-align: center;
+        color: var(--dark-pink);
+        margin-top: 150px;
+        margin-bottom: 100px;
+    }
+
+        .auth-box h2 {
+            font-size: 26px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            color: var(--dark-pink);
+        }
+
+    label {
+        display: block;
+        font-weight: 600;
+        margin: 10px 0 5px;
+        color: var(--dark-pink);
+        text-align: left;
+    }
+
+    .form-input {
+        width: 100%;
+        padding: 12px;
+        border: 2px solid var(--dark-pink);
+        border-radius: 10px;
+        background: white;
+        margin-bottom: 12px;
+        font-size: 16px;
+        color: var(--medium-pink);
+    }
+
+        .form-input:focus {
+            outline: none;
+            border-color: #b01f5f;
+            background: #fff;
+        }
+
+    .btn-primary {
+        width: 100%;
+        padding: 12px;
+        background: var(--dark-pink);
+        color: white;
+        border: none;
+        border-radius: 10px;
+        font-size: 18px;
+        cursor: pointer;
+        margin-top: 10px;
+        transition: 0.2s ease-in-out;
+    }
+
+        .btn-primary:hover {
+            background-color: #b01f5f;
+        }
+
+    .login-link {
+        display: block;
+        margin-top: 15px;
+        font-weight: bold;
+        color: var(--dark-pink);
+        text-decoration: underline;
+        cursor: pointer;
+    }
+
+        .login-link:hover {
+            color: #b01f5f;
+        }
+
+    .auth-message {
+        margin-top: 10px;
+        font-size: 16px;
+        color: var(--dark-pink);
+    }
+
+    .success {
+        color: #2e7d32;
+        font-weight: bold;
+    }
+</style>
+
+
+@code {
+    [Parameter] public string inviteCode { get; set; } = "";   // <-- invite link code
+
+    private PSUser user = new();
+    private string message = "";
+    private bool created = false;
+
+    private async Task CreateUser()
+    {
+        // --- 1️⃣ VALIDATE INVITE FIRST ---
+ 
+
+        // --- 2️⃣ CREATE THE USER ---
+        message = "Creating your account...";
+
+        var success = await UserService.CreateUserAsync(user);
+
+        if (success)
+        {
+            created = true;
+            message = "yay!";
+
+        }
+        else
+        {
+            message = "❌ An account with this email already exists.";
+        }
+    }
+
+    private void GoLogin() => Nav.NavigateTo("/login");
+}

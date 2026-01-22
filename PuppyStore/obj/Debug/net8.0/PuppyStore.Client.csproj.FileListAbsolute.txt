@@ -1,0 +1,7 @@
+C:\Users\kayci\source\repos\PuppyStore\PuppyStore\obj\Debug\net8.0\PuppyStore.Client.csproj.AssemblyReference.cache
+C:\Users\kayci\source\repos\PuppyStore\PuppyStore\obj\Debug\net8.0\rpswa.dswa.cache.json
+C:\Users\kayci\source\repos\PuppyStore\PuppyStore\obj\Debug\net8.0\PuppyStore.Client.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\kayci\source\repos\PuppyStore\PuppyStore\obj\Debug\net8.0\PuppyStore.Client.AssemblyInfoInputs.cache
+C:\Users\kayci\source\repos\PuppyStore\PuppyStore\obj\Debug\net8.0\PuppyStore.Client.AssemblyInfo.cs
+C:\Users\kayci\source\repos\PuppyStore\PuppyStore\obj\Debug\net8.0\PuppyStore.Client.csproj.CoreCompileInputs.cache
+C:\Users\kayci\source\repos\PuppyStore\PuppyStore\obj\Debug\net8.0\PuppyStore.Client.MvcApplicationPartsAssemblyInfo.cache

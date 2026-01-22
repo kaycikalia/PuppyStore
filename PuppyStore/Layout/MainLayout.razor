@@ -1,0 +1,80 @@
+﻿@using PuppyStore.Client.Services
+@inherits LayoutComponentBase
+@inject CartService CartService
+
+<header class="site-header">
+
+    <!-- LEFT: LOGO -->
+    <div class="logo-box">
+        <img src="/Puppy Love.png" alt="Puppy Love" class="logo" />
+    </div>
+
+    <!-- DESKTOP NAV -->
+    <nav class="nav-links desktop-nav">
+
+        <NavLink href="/" class="nav-link" activeClass="active" Match="NavLinkMatch.All">
+            Home
+        </NavLink>
+
+        <NavLink href="/about" class="nav-link" activeClass="active">
+            About
+        </NavLink>
+
+        <NavLink href="/availablepuppies" class="nav-link" activeClass="active">
+            Available Puppies
+        </NavLink>
+
+        <NavLink href="/contact" class="nav-link" activeClass="active">
+            Contact
+        </NavLink>
+
+        <NavLink href="/cart" class="nav-link" activeClass="active" title="Cart">
+            🛒 (@CartService.Cart.Count)
+        </NavLink>
+
+        <NavLink href="/login" class="nav-link" activeClass="active">
+            👤
+        </NavLink>
+
+    </nav>
+
+    <!-- MOBILE HAMBURGER BUTTON -->
+    <button class="hamburger" @onclick="ToggleMenu">
+        <span></span>
+        <span></span>
+        <span></span>
+    </button>
+
+</header>
+
+<!-- MOBILE MENU -->
+<div class="mobile-menu @(menuOpen ? "open" : "")">
+
+    <NavLink href="/" class="mobile-link" @onclick="CloseMenu">Home</NavLink>
+    <NavLink href="/about" class="mobile-link" @onclick="CloseMenu">About</NavLink>
+    <NavLink href="/availablepuppies" class="mobile-link" @onclick="CloseMenu">Available Puppies</NavLink>
+    <NavLink href="/contact" class="mobile-link" @onclick="CloseMenu">Contact</NavLink>
+    <NavLink href="/cart" class="mobile-link" @onclick="CloseMenu">🛒 Cart (@CartService.Cart.Count)</NavLink>
+    <NavLink href="/login" class="mobile-link" @onclick="CloseMenu">👤 Login</NavLink>
+
+</div>
+
+<main class="page-body">
+    @Body
+</main>
+
+@code {
+    private bool menuOpen = false;
+
+    protected override void OnInitialized()
+    {
+        InvokeAsync(async () =>
+        {
+            await CartService.LoadCart();
+            StateHasChanged();
+        });
+    }
+
+    void ToggleMenu() => menuOpen = !menuOpen;
+    void CloseMenu() => menuOpen = false;
+}
